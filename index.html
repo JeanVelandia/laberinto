@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laberinto con Paredes Visibles</title>
+    <title>Laberinto con Personajes Personalizados</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -194,8 +194,8 @@
         
         .maze {
             display: grid;
-            gap: 0; /* Sin espacio entre celdas para que las paredes se conecten */
-            background: #444;
+            gap: 0;
+            background: #333;
         }
         
         .cell {
@@ -204,63 +204,62 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #333;
+            background: #222;
             position: relative;
         }
         
-        /* Paredes visibles */
-        .cell.wall-top::before {
+        /* Paredes visibles - Mejoradas */
+        .cell::before, .cell::after {
             content: '';
             position: absolute;
+            background: #4a69bd;
+            box-shadow: 0 0 8px rgba(74, 105, 189, 0.9);
+            z-index: 2;
+        }
+        
+        .cell.wall-top::before {
             top: 0;
             left: 0;
             right: 0;
-            height: 2px;
-            background: #1a2a6c;
-            box-shadow: 0 0 5px rgba(26, 42, 108, 0.8);
+            height: 4px;
         }
         
         .cell.wall-right::after {
-            content: '';
-            position: absolute;
             top: 0;
             right: 0;
             bottom: 0;
-            width: 2px;
-            background: #1a2a6c;
-            box-shadow: 0 0 5px rgba(26, 42, 108, 0.8);
+            width: 4px;
         }
         
         .cell.wall-bottom::after {
-            content: '';
-            position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            height: 2px;
-            background: #1a2a6c;
-            box-shadow: 0 0 5px rgba(26, 42, 108, 0.8);
+            height: 4px;
         }
         
         .cell.wall-left::before {
-            content: '';
-            position: absolute;
             top: 0;
             left: 0;
             bottom: 0;
-            width: 2px;
-            background: #1a2a6c;
-            box-shadow: 0 0 5px rgba(26, 42, 108, 0.8);
+            width: 4px;
         }
         
         .player {
             width: 24px;
             height: 24px;
             border-radius: 50%;
-            background: #00f3ff;
-            box-shadow: 0 0 10px #00f3ff;
             animation: pulse 1.5s infinite alternate;
             z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .player img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
         
         .exit {
@@ -381,6 +380,26 @@
             font-size: 0.9rem;
             color: #ccc;
         }
+        
+        /* Efecto de borde en el laberinto */
+        .maze-border {
+            border: 4px solid #4a69bd;
+            border-radius: 4px;
+            box-shadow: 0 0 15px rgba(74, 105, 189, 0.8);
+        }
+        
+        /* Iconos de personajes en pantalla de victoria */
+        .win-character {
+            width: 80px;
+            height: 80px;
+            margin: 15px auto;
+        }
+        
+        .win-character img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
     </style>
 </head>
 <body>
@@ -388,7 +407,7 @@
         <div class="decoration circle circle-1"></div>
         <div class="decoration circle circle-2"></div>
         
-        <h1><i class="fas fa-dungeon"></i> LABERINTO CON PAREDES</h1>
+        <h1><i class="fas fa-dungeon"></i> LABERINTO CON PERSONAJES</h1>
         
         <!-- Pantalla de inicio -->
         <div class="panel start-screen" id="startScreen">
@@ -442,7 +461,7 @@
                 </div>
             </div>
             
-            <div class="maze-container">
+            <div class="maze-container maze-border">
                 <div class="maze" id="maze"></div>
             </div>
             
@@ -464,6 +483,11 @@
         <!-- Pantalla de victoria -->
         <div class="panel win-screen" id="winScreen">
             <div class="win-title">¡LABERINTO COMPLETADO!</div>
+            
+            <div class="win-character">
+                <img id="winCharacterImg" src="https://img.icons8.com/color/96/000000/knight.png" alt="Personaje">
+            </div>
+            
             <div class="win-stats">
                 <p>¡Felicidades <span id="winCharName">Caballero</span>!</p>
                 <p>Completaste el laberinto <span id="winLevel">fácil</span> en <span id="winTime">00:00</span></p>
@@ -501,6 +525,24 @@
             '5': 'Asesino'
         };
         
+        // Imágenes de personajes
+        const characterImages = {
+            '1': 'https://img.icons8.com/color/96/000000/knight.png',
+            '2': 'https://img.icons8.com/color/96/000000/wizard.png',
+            '3': 'https://img.icons8.com/color/96/000000/elf.png',
+            '4': 'https://img.icons8.com/color/96/000000/viking.png',
+            '5': 'https://img.icons8.com/color/96/000000/assassin.png'
+        };
+        
+        // Colores de personajes (para fondo si no se muestra la imagen)
+        const characterColors = {
+            '1': '#3498db',   // Caballero - Azul
+            '2': '#9b59b6',   // Mago - Púrpura
+            '3': '#2ecc71',   // Elfo - Verde
+            '4': '#e74c3c',   // Vikingo - Rojo
+            '5': '#f1c40f'    // Asesino - Amarillo
+        };
+        
         // Elementos DOM
         const startScreen = document.getElementById('startScreen');
         const gameScreen = document.getElementById('gameScreen');
@@ -518,6 +560,7 @@
         const winLevel = document.getElementById('winLevel');
         const winTime = document.getElementById('winTime');
         const winSteps = document.getElementById('winSteps');
+        const winCharacterImg = document.getElementById('winCharacterImg');
         
         // Selección de dificultad
         document.querySelectorAll('.option[data-level]').forEach(option => {
@@ -657,7 +700,7 @@
             }
         }
         
-        // Renderizar laberinto con paredes visibles
+        // Renderizar laberinto con paredes visibles y personaje seleccionado
         function renderMaze() {
             const size = maze.length;
             mazeElement.innerHTML = '';
@@ -675,10 +718,19 @@
                     if (cellData.bottom) cell.classList.add('wall-bottom');
                     if (cellData.left) cell.classList.add('wall-left');
                     
-                    // Añadir jugador
+                    // Añadir jugador con el personaje seleccionado
                     if (x === playerPos.x && y === playerPos.y) {
                         const player = document.createElement('div');
                         player.classList.add('player');
+                        
+                        // Crear imagen del personaje
+                        const charImg = document.createElement('img');
+                        charImg.src = characterImages[character];
+                        charImg.alt = characterNames[character];
+                        player.appendChild(charImg);
+                        
+                        // También añadir color de fondo como alternativa
+                        player.style.backgroundColor = characterColors[character];
                         cell.appendChild(player);
                     }
                     
@@ -762,6 +814,10 @@
             winLevel.textContent = difficultySettings[difficulty].name;
             winTime.textContent = timerElement.textContent;
             winSteps.textContent = steps;
+            
+            // Actualizar imagen del personaje en pantalla de victoria
+            winCharacterImg.src = characterImages[character];
+            winCharacterImg.alt = characterNames[character];
             
             // Mostrar pantalla de victoria
             gameScreen.style.display = 'none';
