@@ -6,6 +6,7 @@
     <title>Laberinto con Personajes Personalizados</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* ===== ESTILOS GENERALES ===== */
         * {
             margin: 0;
             padding: 0;
@@ -13,37 +14,45 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+        
         body {
             background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 15px;
             overflow: hidden;
             color: white;
         }
         
         .container {
-            width: 90%;
+            width: 100%;
             max-width: 900px;
             background: rgba(0, 0, 0, 0.7);
             border-radius: 20px;
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
-            padding: 30px;
+            padding: 20px;
             text-align: center;
             position: relative;
             overflow: hidden;
+            margin: 10px;
         }
         
         h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
+            font-size: clamp(1.8rem, 6vw, 3.2rem);
+            margin-bottom: 15px;
             text-shadow: 0 0 10px #00f3ff;
             color: #fff;
             background: linear-gradient(to right, #ff8a00, #da1b60, #00f3ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: titleGlow 2s infinite alternate;
+            padding: 0 10px;
         }
         
         @keyframes titleGlow {
@@ -55,30 +64,30 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 30px;
-            padding: 20px;
+            gap: 20px;
+            padding: 15px;
             transition: transform 0.5s ease;
         }
         
-        /* Menú de inicio */
+        /* ===== PANTALLA DE INICIO ===== */
         .start-screen {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 30px;
+            gap: 20px;
         }
         
         .difficulty, .characters {
             width: 100%;
             background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
+            padding: 15px;
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
         
         h2 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
+            font-size: clamp(1.2rem, 4vw, 1.7rem);
+            margin-bottom: 15px;
             color: #ff8a00;
         }
         
@@ -86,18 +95,19 @@
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 15px;
+            gap: 10px;
+            margin-top: 10px;
         }
         
         .option {
-            padding: 12px 25px;
+            padding: 10px 20px;
             border-radius: 50px;
             background: rgba(255, 255, 255, 0.1);
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: 600;
             border: 2px solid transparent;
+            font-size: clamp(0.8rem, 3vw, 1rem);
         }
         
         .option:hover {
@@ -112,8 +122,8 @@
         }
         
         .char-option {
-            width: 70px;
-            height: 70px;
+            width: clamp(45px, 12vw, 65px);
+            height: clamp(45px, 12vw, 65px);
             border-radius: 50%;
             overflow: hidden;
             cursor: pointer;
@@ -126,8 +136,8 @@
         }
         
         .char-option img {
-            width: 80%;
-            height: 80%;
+            width: 100%;
+            height: 100%;
             object-fit: contain;
         }
         
@@ -144,8 +154,8 @@
         }
         
         .btn {
-            padding: 15px 50px;
-            font-size: 1.2rem;
+            padding: 12px 35px;
+            font-size: clamp(1rem, 3.5vw, 1.2rem);
             border: none;
             border-radius: 50px;
             background: linear-gradient(45deg, #ff8a00, #da1b60);
@@ -164,51 +174,69 @@
             background: linear-gradient(45deg, #ff9a3d, #e63b7a);
         }
         
-        /* Pantalla de juego */
+        /* ===== PANTALLA DE JUEGO ===== */
         .game-screen {
             display: none;
             flex-direction: column;
             align-items: center;
-            gap: 25px;
+            gap: 20px;
         }
         
         .game-header {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            gap: 10px;
             width: 100%;
             padding: 0 10px;
         }
         
+        .game-info-row {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+        
         .game-info {
             display: flex;
-            gap: 20px;
-            font-size: 1.2rem;
+            gap: 10px;
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
         }
         
         .maze-container {
             background: rgba(0, 0, 0, 0.5);
             border-radius: 10px;
-            padding: 15px;
+            padding: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            max-width: 90vw;
+            margin: 0 auto;
         }
         
         .maze {
             display: grid;
             gap: 0;
             background: #333;
+            margin: 0 auto;
+            max-width: 100%;
         }
         
         .cell {
-            width: 30px;
-            height: 30px;
             display: flex;
             justify-content: center;
             align-items: center;
             background: #222;
             position: relative;
+            aspect-ratio: 1/1;
         }
         
-        /* Paredes visibles - Mejoradas */
+        /* Tamaños responsivos para las celdas */
+        .cell-size-small { width: 20px; height: 20px; }
+        .cell-size-medium { width: 25px; height: 25px; }
+        .cell-size-large { width: 30px; height: 30px; }
+        
+        /* Paredes visibles */
         .cell::before, .cell::after {
             content: '';
             position: absolute;
@@ -221,33 +249,33 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
+            height: 3px;
         }
         
         .cell.wall-right::after {
             top: 0;
             right: 0;
             bottom: 0;
-            width: 4px;
+            width: 3px;
         }
         
         .cell.wall-bottom::after {
             bottom: 0;
             left: 0;
             right: 0;
-            height: 4px;
+            height: 3px;
         }
         
         .cell.wall-left::before {
             top: 0;
             left: 0;
             bottom: 0;
-            width: 4px;
+            width: 3px;
         }
         
         .player {
-            width: 24px;
-            height: 24px;
+            width: 80%;
+            height: 80%;
             border-radius: 50%;
             animation: pulse 1.5s infinite alternate;
             z-index: 10;
@@ -260,11 +288,12 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
+            border-radius: 50%;
         }
         
         .exit {
-            width: 24px;
-            height: 24px;
+            width: 80%;
+            height: 80%;
             background: #ff8a00;
             border-radius: 50%;
             box-shadow: 0 0 10px #ff8a00;
@@ -283,10 +312,11 @@
             align-items: center;
             gap: 10px;
             margin-top: 10px;
+            width: 100%;
         }
         
         .controls-info {
-            font-size: 0.9rem;
+            font-size: clamp(0.8rem, 3vw, 0.9rem);
             color: #aaa;
         }
         
@@ -296,8 +326,8 @@
         }
         
         .control-btn {
-            width: 50px;
-            height: 50px;
+            width: clamp(50px, 15vw, 60px);
+            height: clamp(50px, 15vw, 60px);
             background: rgba(255, 255, 255, 0.1);
             border: 2px solid #00f3ff;
             border-radius: 10px;
@@ -305,7 +335,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.5rem;
+            font-size: clamp(1.2rem, 4vw, 1.5rem);
             cursor: pointer;
             transition: all 0.2s ease;
             color: #00f3ff;
@@ -316,16 +346,16 @@
             transform: scale(1.1);
         }
         
-        /* Mensaje de victoria */
+        /* ===== PANTALLA DE VICTORIA ===== */
         .win-screen {
             display: none;
             flex-direction: column;
             align-items: center;
-            gap: 30px;
+            gap: 20px;
         }
         
         .win-title {
-            font-size: 3rem;
+            font-size: clamp(1.8rem, 6vw, 2.8rem);
             color: #ff8a00;
             text-shadow: 0 0 10px rgba(255, 138, 0, 0.7);
             animation: winPulse 1s infinite alternate;
@@ -337,14 +367,14 @@
         }
         
         .win-stats {
-            font-size: 1.5rem;
+            font-size: clamp(1.1rem, 3.5vw, 1.4rem);
             background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
+            padding: 15px;
             border-radius: 15px;
-            width: 80%;
+            width: 90%;
         }
         
-        /* Decoraciones */
+        /* ===== DECORACIONES ===== */
         .decoration {
             position: absolute;
             z-index: -1;
@@ -370,35 +400,232 @@
             background: linear-gradient(45deg, #da1b60, #1a2a6c);
         }
         
-        /* Instrucciones */
+        /* ===== INSTRUCCIONES ===== */
         .instructions {
             max-width: 600px;
-            margin: 20px auto 0;
-            padding: 15px;
+            margin: 15px auto 0;
+            padding: 10px;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 10px;
-            font-size: 0.9rem;
+            font-size: clamp(0.7rem, 2.5vw, 0.85rem);
             color: #ccc;
+            line-height: 1.4;
         }
         
-        /* Efecto de borde en el laberinto */
+        /* ===== BORDE DEL LABERINTO ===== */
         .maze-border {
-            border: 4px solid #4a69bd;
+            border: 3px solid #4a69bd;
             border-radius: 4px;
             box-shadow: 0 0 15px rgba(74, 105, 189, 0.8);
         }
         
-        /* Iconos de personajes en pantalla de victoria */
+        /* ===== ICONOS DE PERSONAJES ===== */
         .win-character {
-            width: 80px;
-            height: 80px;
-            margin: 15px auto;
+            width: clamp(60px, 15vw, 80px);
+            height: clamp(60px, 15vw, 80px);
+            margin: 10px auto;
         }
         
         .win-character img {
             width: 100%;
             height: 100%;
             object-fit: contain;
+            border-radius: 50%;
+        }
+        
+        /* ===== MEDIA QUERIES PARA RESPONSIVIDAD ===== */
+        /* Pantallas medianas (tablets) */
+        @media (min-width: 768px) {
+            .container {
+                padding: 25px;
+            }
+            
+            .panel {
+                gap: 25px;
+                padding: 20px;
+            }
+            
+            .difficulty, .characters {
+                padding: 20px;
+            }
+            
+            .game-header {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            .game-info-row {
+                flex-direction: row;
+                justify-content: space-between;
+                width: auto;
+            }
+            
+            .controls {
+                width: auto;
+            }
+            
+            .cell-size-small { width: 22px; height: 22px; }
+            .cell-size-medium { width: 20px; height: 20px; }
+            .cell-size-large { width: 28px; height: 28px; }
+        }
+        
+        /* Pantallas pequeñas (móviles) */
+        @media (max-width: 767px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 15px;
+                margin: 5px 0;
+            }
+            
+            .options {
+                gap: 8px;
+            }
+            
+            .option {
+                padding: 8px 15px;
+            }
+            
+            .char-option {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .btn {
+                padding: 10px 25px;
+                font-size: 1rem;
+            }
+            
+            .game-info {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+            
+            .maze-container {
+                padding: 5px;
+            }
+            
+            .cell-size-small { width: 16px; height: 16px; }
+            .cell-size-medium { width: 18px; height: 18px; }
+            .cell-size-large { width: 22px; height: 22px; }
+            
+            .controls-row {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .control-btn {
+                width: 60px;
+                height: 60px;
+                margin: 4px;
+            }
+        }
+        
+        /* Pantallas muy pequeñas (móviles pequeños) */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            h2 {
+                font-size: 1.1rem;
+            }
+            
+            .options {
+                gap: 6px;
+            }
+            
+            .option {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+            
+            .char-option {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .btn {
+                padding: 8px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .game-info {
+                font-size: 0.8rem;
+            }
+            
+            .cell-size-small { width: 14px; height: 14px; }
+            .cell-size-medium { width: 16px; height: 16px; }
+            .cell-size-large { width: 18px; height: 18px; }
+            
+            .control-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+            
+            .controls-info {
+                font-size: 0.8rem;
+            }
+        }
+        
+        /* Orientación horizontal */
+        @media (max-width: 767px) and (orientation: landscape) {
+            .container {
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+            
+            .maze-container {
+                max-height: 50vh;
+                overflow: auto;
+            }
+            
+            .panel {
+                gap: 10px;
+            }
+            
+            .difficulty, .characters {
+                padding: 10px;
+            }
+        }
+        
+        /* Altura reducida */
+        @media (max-height: 700px) {
+            body {
+                padding: 5px;
+            }
+            
+            .container {
+                margin: 5px 0;
+                padding: 15px;
+            }
+            
+            h1 {
+                margin-bottom: 8px;
+                font-size: 1.5rem;
+            }
+            
+            .panel {
+                gap: 10px;
+                padding: 10px;
+            }
+            
+            .difficulty, .characters {
+                padding: 12px;
+            }
+            
+            .btn {
+                margin-top: 5px;
+                padding: 8px 20px;
+            }
+            
+            .cell-size-small { width: 16px; height: 16px; }
+            .cell-size-medium { width: 18px; height: 18px; }
+            .cell-size-large { width: 22px; height: 22px; }
         }
     </style>
 </head>
@@ -424,19 +651,16 @@
                 <h2><i class="fas fa-user"></i> ELIGE TU PERSONAJE</h2>
                 <div class="options">
                     <div class="char-option selected" data-char="1">
-                        <img src="https://img.icons8.com/color/96/000000/knight.png" alt="Caballero">
+                        <img src="personajes/Tony 1.jpg" alt="Tony">
                     </div>
                     <div class="char-option" data-char="2">
-                        <img src="https://img.icons8.com/color/96/000000/wizard.png" alt="Mago">
+                        <img src="personajes/Sam 1.jpg" alt="Sam">
                     </div>
                     <div class="char-option" data-char="3">
-                        <img src="https://img.icons8.com/color/96/000000/elf.png" alt="Elfo">
+                        <img src="personajes/Melvin 1.jpg" alt="Melvin">
                     </div>
                     <div class="char-option" data-char="4">
-                        <img src="https://img.icons8.com/color/96/000000/viking.png" alt="Vikingo">
-                    </div>
-                    <div class="char-option" data-char="5">
-                        <img src="https://img.icons8.com/color/96/000000/assassin.png" alt="Asesino">
+                        <img src="personajes/Cornelio 1.jpg" alt="Cornelio">
                     </div>
                 </div>
             </div>
@@ -451,13 +675,15 @@
         <!-- Pantalla de juego -->
         <div class="panel game-screen" id="gameScreen">
             <div class="game-header">
-                <div class="game-info">
-                    <div><i class="fas fa-user"></i> <span id="selectedCharName">Caballero</span></div>
-                    <div><i class="fas fa-chart-line"></i> <span id="selectedLevel">Fácil</span></div>
-                </div>
-                <div class="game-info">
-                    <div><i class="fas fa-shoe-prints"></i> <span id="steps">0</span> pasos</div>
-                    <div><i class="fas fa-clock"></i> <span id="timer">00:00</span></div>
+                <div class="game-info-row">
+                    <div class="game-info">
+                        <div><i class="fas fa-user"></i> <span id="selectedCharName">Caballero</span></div>
+                        <div><i class="fas fa-chart-line"></i> <span id="selectedLevel">Fácil</span></div>
+                    </div>
+                    <div class="game-info">
+                        <div><i class="fas fa-shoe-prints"></i> <span id="steps">0</span> pasos</div>
+                        <div><i class="fas fa-clock"></i> <span id="timer">00:00</span></div>
+                    </div>
                 </div>
             </div>
             
@@ -485,7 +711,7 @@
             <div class="win-title">¡LABERINTO COMPLETADO!</div>
             
             <div class="win-character">
-                <img id="winCharacterImg" src="https://img.icons8.com/color/96/000000/knight.png" alt="Personaje">
+                <img id="winCharacterImg" src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?w=200&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D" alt="Personaje">
             </div>
             
             <div class="win-stats">
@@ -511,36 +737,33 @@
         
         // Configuración de dificultad
         const difficultySettings = {
-            facil: { size: 10, name: "Fácil" },
-            medio: { size: 15, name: "Medio" },
-            avanzado: { size: 20, name: "Avanzado" }
+            facil: { size: 10, name: "Fácil", cellClass: "cell-size-large" },
+            medio: { size: 15, name: "Medio", cellClass: "cell-size-medium" },
+            avanzado: { size: 20, name: "Avanzado", cellClass: "cell-size-small" }
         };
         
         // Nombres de personajes
         const characterNames = {
-            '1': 'Caballero',
-            '2': 'Mago',
-            '3': 'Elfo',
-            '4': 'Vikingo',
-            '5': 'Asesino'
+            '1': 'Tony',
+            '2': 'Sam',
+            '3': 'Melvin',
+            '4': 'Cornelio'
         };
         
         // Imágenes de personajes
         const characterImages = {
-            '1': 'https://img.icons8.com/color/96/000000/knight.png',
-            '2': 'https://img.icons8.com/color/96/000000/wizard.png',
-            '3': 'https://img.icons8.com/color/96/000000/elf.png',
-            '4': 'https://img.icons8.com/color/96/000000/viking.png',
-            '5': 'https://img.icons8.com/color/96/000000/assassin.png'
+            '1': 'personajes/Tony 1.jpg',
+            '2': 'personajes/Sam 1.jpg',
+            '3': 'personajes/Melvin 1.jpg',
+            '4': 'personajes/Cornelio 1.jpg'
         };
         
-        // Colores de personajes (para fondo si no se muestra la imagen)
+        // Colores de personajes
         const characterColors = {
-            '1': '#3498db',   // Caballero - Azul
-            '2': '#9b59b6',   // Mago - Púrpura
-            '3': '#2ecc71',   // Elfo - Verde
-            '4': '#e74c3c',   // Vikingo - Rojo
-            '5': '#f1c40f'    // Asesino - Amarillo
+            '1': '#3498db',
+            '2': '#e74c3c',
+            '3': '#b07d62',
+            '4': '#2ecc71'
         };
         
         // Elementos DOM
@@ -597,6 +820,7 @@
         
         // Mostrar pantalla de inicio
         function showStartScreen() {
+            document.body.style.overflow = 'auto';
             startScreen.style.display = 'flex';
             gameScreen.style.display = 'none';
             winScreen.style.display = 'none';
@@ -605,6 +829,7 @@
         
         // Iniciar juego
         function startGame() {
+            document.body.style.overflow = 'hidden';
             // Obtener configuración
             const config = difficultySettings[difficulty];
             selectedCharName.textContent = characterNames[character];
@@ -618,7 +843,7 @@
             
             // Generar laberinto
             generateMaze(config.size);
-            renderMaze();
+            renderMaze(config.cellClass);
             
             // Mostrar pantalla de juego
             startScreen.style.display = 'none';
@@ -701,15 +926,16 @@
         }
         
         // Renderizar laberinto con paredes visibles y personaje seleccionado
-        function renderMaze() {
+        function renderMaze(cellClass) {
             const size = maze.length;
             mazeElement.innerHTML = '';
-            mazeElement.style.gridTemplateColumns = `repeat(${size}, 30px)`;
+            mazeElement.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
             
             for (let y = 0; y < size; y++) {
                 for (let x = 0; x < size; x++) {
                     const cell = document.createElement('div');
                     cell.classList.add('cell');
+                    cell.classList.add(cellClass);
                     
                     // Añadir clases de paredes
                     const cellData = maze[y][x];
@@ -774,7 +1000,8 @@
             
             // Actualizar UI
             stepsElement.textContent = steps;
-            renderMaze();
+            const config = difficultySettings[difficulty];
+            renderMaze(config.cellClass);
             
             // Comprobar si ha llegado a la salida
             if (playerPos.x === exitPos.x && playerPos.y === exitPos.y) {
@@ -783,14 +1010,27 @@
         }
         
         // Manejar teclas presionadas
-        function handleKeyPress(e) {
-            switch(e.key) {
-                case 'ArrowUp': movePlayer(0, -1); break;
-                case 'ArrowDown': movePlayer(0, 1); break;
-                case 'ArrowLeft': movePlayer(-1, 0); break;
-                case 'ArrowRight': movePlayer(1, 0); break;
+        function handleKeyPress(event) {
+            switch (event.key) {
+                case "ArrowUp":
+                    event.preventDefault();
+                    movePlayer(0, -1);
+                    break;
+                case "ArrowDown":
+                    event.preventDefault();
+                    movePlayer(0, 1);
+                    break;
+                case "ArrowLeft":
+                    event.preventDefault();
+                    movePlayer(-1, 0);
+                    break;
+                case "ArrowRight":
+                    event.preventDefault();
+                    movePlayer(1, 0);
+                    break;
             }
         }
+
         
         // Iniciar temporizador
         function startTimer() {
