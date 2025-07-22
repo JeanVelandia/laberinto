@@ -100,13 +100,13 @@ document.getElementById('leftBtn').addEventListener('click', () => movePlayer(-1
 document.getElementById('rightBtn').addEventListener('click', () => movePlayer(1, 0));
 
 // Mostrar pantalla de inicio
-function showStartScreen() {
-    document.body.style.overflow = 'auto';
-    startScreen.style.display = 'flex';
-    gameScreen.style.display = 'none';
-    winScreen.style.display = 'none';
-    clearInterval(timerInterval);
-}
+// function showStartScreen() {
+//     document.body.style.overflow = 'auto';
+//     startScreen.style.display = 'flex';
+//     gameScreen.style.display = 'none';
+//     winScreen.style.display = 'none';
+//     clearInterval(timerInterval);
+// }
 
 // Iniciar juego
 function startGame() {
@@ -325,7 +325,14 @@ function startTimer() {
         timerElement.textContent = `${minutes}:${seconds}`;
     }, 1000);
 }
-
+function showStartScreen() {
+    document.body.style.overflow = 'auto';
+    startScreen.style.display = 'flex';
+    gameScreen.style.display = 'none';
+    winScreen.style.display = 'none';
+    clearInterval(timerInterval);
+    mostrarTituloYDescripcion(); // Mostrar título al volver
+}
 // Ganar el juego
 function winGame() {
     clearInterval(timerInterval);
@@ -388,6 +395,15 @@ document.getElementById('backBtn').addEventListener('click', function () {
     document.getElementById('startScreen').style.display = 'block';
 
   mostrarTituloYDescripcion(); // Muestra título e instrucciones
-});
+  // 
+  // Asegurar que el temporizador se detenga al volver al menú
 
+
+    // Modificar función para mostrar título
+    function mostrarTituloYDescripcion() {
+        document.getElementById('mainTitle').style.display = 'block';
+        document.getElementById('instructions').style.display = 'block';
+    }
+
+});
 

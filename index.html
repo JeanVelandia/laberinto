@@ -50,39 +50,45 @@
             <p><i class="fas fa-info-circle"></i>Instrucciones: Selecciona dificultad y personaje. Usa las flechas del teclado o los botones para moverte por el laberinto. Encuentra la salida (círculo naranja) lo más rápido posible.</p>
         </div>
     
-
         <!-- Pantalla de juego -->
+        <!-- Cambios en la estructura de la pantalla de juego -->
         <div class="panel panel-style game-screen" id="gameScreen" style="display: none;">
-        <div class="game-header">
-            <div class="game-info-row">
-            <div class="game-info">
-                <div><i class="fas fa-user"></i> <span id="selectedCharName">Caballero</span></div>
-                <div><i class="fas fa-chart-line"></i> <span id="selectedLevel">Fácil</span></div>
+            <div class="game-header">
+                <div class="game-info-row">
+                <div class="game-info">
+                    <div><i class="fas fa-user"></i> <span id="selectedCharName">Caballero</span></div>
+                    <div><i class="fas fa-chart-line"></i> <span id="selectedLevel">Fácil</span></div>
+                </div>
+                <div class="game-info">
+                    <div><i class="fas fa-shoe-prints"></i> <span id="steps">0</span> pasos</div>
+                    <div><i class="fas fa-clock"></i> <span id="timer">00:00</span></div>
+                </div>
+                </div>
             </div>
-            <div class="game-info">
-                <div><i class="fas fa-shoe-prints"></i> <span id="steps">0</span> pasos</div>
-                <div><i class="fas fa-clock"></i> <span id="timer">00:00</span></div>
-            </div>
-            </div>
-        </div>
 
-        <div class="maze-container maze-border">
-            <div class="maze" id="maze"></div>
-        </div>
-
-        <div class="controls">
-            <div class="controls-info">Usa las flechas o los botones para moverte</div>
-            <div class="controls-row">
-            <div class="control-btn" id="upBtn"><i class="fas fa-arrow-up"></i></div>
+            <div class="desktop-game-layout"> <!-- Nuevo contenedor para diseño de escritorio -->
+                <div class="maze-container maze-border">
+                <div class="maze" id="maze"></div>
+                </div>
+                
+                <div class="game-info-controls"> <!-- Nuevo contenedor para info y controles -->
+                    
+                
+                    <div class="controls">
+                        <div class="controls-info">Usa las flechas o los botones para moverte</div>
+                        <div class="controls-row">
+                        <div class="control-btn" id="upBtn"><i class="fas fa-arrow-up"></i></div>
+                        </div>
+                        <div class="controls-row">
+                        <div class="control-btn" id="leftBtn"><i class="fas fa-arrow-left"></i></div>
+                        <div class="control-btn" id="downBtn"><i class="fas fa-arrow-down"></i></div>
+                        <div class="control-btn" id="rightBtn"><i class="fas fa-arrow-right"></i></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="controls-row">
-            <div class="control-btn" id="leftBtn"><i class="fas fa-arrow-left"></i></div>
-            <div class="control-btn" id="downBtn"><i class="fas fa-arrow-down"></i></div>
-            <div class="control-btn" id="rightBtn"><i class="fas fa-arrow-right"></i></div>
-            </div>
-        </div>
 
-        <button class="btn" id="backBtn"><i class="fas fa-arrow-left"></i> VOLVER AL MENÚ</button>
+            <button class="btn" id="backBtn"><i class="fas fa-arrow-left"></i> VOLVER AL MENÚ</button>
         </div>
 
         <!-- Pantalla de victoria -->
