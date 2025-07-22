@@ -237,8 +237,6 @@ h2 {
 .cell::before, .cell::after {
     content: '';
     position: absolute;
-    background: #4a69bd;
-    box-shadow: 0 0 8px rgba(74, 105, 189, 0.9);
     z-index: 2;
 }
 
