@@ -350,3 +350,25 @@ function winGame() {
 document.addEventListener('DOMContentLoaded', () => {
     showStartScreen();
 });
+
+
+function ocultarTituloYDescripcion() {
+  document.getElementById('mainTitle').style.display = 'none';
+  document.getElementById('instructions').style.display = 'none';
+}
+document.getElementById('startBtn').addEventListener('click', function () {
+  document.getElementById('startScreen').style.display = 'none';
+  document.getElementById('gameScreen').style.display = 'block';
+
+  ocultarTituloYDescripcion(); // 🔴 OCULTAR AQUÍ
+});
+function mostrarPantallaVictoria() {
+  document.getElementById('gameScreen').style.display = 'none';
+  document.getElementById('winScreen').style.display = 'block';
+
+  ocultarTituloYDescripcion(); // 🔴 OCULTAR AQUÍ TAMBIÉN
+}
+function mostrarTituloYDescripcion() {
+  document.getElementById('mainTitle').style.display = 'block';
+  document.getElementById('instructions').style.display = 'block';
+}

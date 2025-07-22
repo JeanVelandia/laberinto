@@ -8,15 +8,13 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <style>
-
 </style>
-
 
 <body>
     <div class="container">     
-        <h1 style="color: #d50032; text-align: center; font-size: 2.5rem; background: #ffffff;">
-                LABERINTO CON <br> <span style="font-style: italic;">Personajes</span>
-                </h1>
+        <h1 id="mainTitle" style="color: #d50032; text-align: center; font-size: 2.5rem; background: #ffffff;">
+        LABERINTO CON <br> <span style="font-style: italic;">Personajes</span>
+        </h1>
         <!-- Pantalla de inicio -->
         <div class="panel panel-style start-screen" id="startScreen">
         <!-- TÍTULO -->
@@ -48,9 +46,11 @@
         
                 
         </div>
-        <div class="instructions" style="background: #ffffff;">
-            <p><i class="fas fa-info-circle"></i> Instrucciones: Selecciona dificultad y personaje. Usa las flechas del teclado o los botones para moverte por el laberinto. Encuentra la salida (círculo naranja) lo más rápido posible.</p>
+
+        <div class="instructions" id="instructions" style="background: #ffffff;">
+        <p><i class="fas fa-info-circle"></i> Instrucciones: Selecciona dificultad y personaje. Usa las flechas del teclado o los botones para moverte por el laberinto. Encuentra la salida (círculo naranja) lo más rápido posible.</p>
         </div>
+
         <!-- Pantalla de juego -->
         <div class="panel panel-style game-screen" id="gameScreen" style="display: none;">
         <div class="game-header">
