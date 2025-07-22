@@ -534,7 +534,7 @@ h2 {
     
     .option {
         padding: 6px 12px;
-        font-size: 0.8rem;
+        font-size: 1.1rem;
     }
     
     .char-option {
@@ -545,6 +545,17 @@ h2 {
     .btn {
         padding: 8px 20px;
         font-size: 0.9rem;
+    }
+
+    .btn {
+        color: #ffffff;
+        border: none;
+        border-radius: 30px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.2s;
+        margin-bottom: -3.4%;
+        margin-top: -10%;
     }
     
     .game-info {
@@ -571,6 +582,19 @@ h2 {
         gap: 5px;
         flex-wrap: wrap;
         margin: 20px 0;
+    }
+
+    .container {
+        width: 100%;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-radius: 20px;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        height: 750px;
     }
 }
 
