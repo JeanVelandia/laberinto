@@ -353,22 +353,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 function ocultarTituloYDescripcion() {
-  document.getElementById('mainTitle').style.display = 'none';
-  document.getElementById('instructions').style.display = 'none';
+    document.getElementById('mainTitle').style.display = 'none';
+    document.getElementById('instructions').style.display = 'none';
 }
-document.getElementById('startBtn').addEventListener('click', function () {
-  document.getElementById('startScreen').style.display = 'none';
-  document.getElementById('gameScreen').style.display = 'block';
 
-  ocultarTituloYDescripcion(); // 🔴 OCULTAR AQUÍ
-});
-function mostrarPantallaVictoria() {
-  document.getElementById('gameScreen').style.display = 'none';
-  document.getElementById('winScreen').style.display = 'block';
-
-  ocultarTituloYDescripcion(); // 🔴 OCULTAR AQUÍ TAMBIÉN
-}
 function mostrarTituloYDescripcion() {
-  document.getElementById('mainTitle').style.display = 'block';
-  document.getElementById('instructions').style.display = 'block';
+    document.getElementById('mainTitle').style.display = 'block';
+    document.getElementById('instructions').style.display = 'block';
 }
+
+document.getElementById('startBtn').addEventListener('click', function () {
+    document.getElementById('startScreen').style.display = 'none';
+    document.getElementById('gameScreen').style.display = 'block';
+
+  ocultarTituloYDescripcion(); // Oculta título e instrucciones
+});
+
+function mostrarPantallaVictoria() {
+    document.getElementById('gameScreen').style.display = 'none';
+    document.getElementById('winScreen').style.display = 'block';
+
+  ocultarTituloYDescripcion(); // También ocúltalos al ganar
+}
+
+document.getElementById('menuBtn').addEventListener('click', function () {
+    document.getElementById('winScreen').style.display = 'none';
+    document.getElementById('startScreen').style.display = 'block';
+
+  mostrarTituloYDescripcion(); // Vuelve a mostrar título e instrucciones
+});
+
+document.getElementById('backBtn').addEventListener('click', function () {
+    document.getElementById('gameScreen').style.display = 'none';
+    document.getElementById('startScreen').style.display = 'block';
+
+  mostrarTituloYDescripcion(); // Muestra título e instrucciones
+});
+
+
