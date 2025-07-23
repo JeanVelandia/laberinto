@@ -1,6 +1,15 @@
 @font-face {
-    font-family: 'OpenSans';
+    font-family: 'Tipografia-kellogs';
     src: url('./BarleyScript_PERSONAL_USE.ttf') ;
+}
+
+span{
+    margin-left: -1%;
+}
+span.p{
+    font-family: 'Tipografia-kellogs';
+    font-size: 3.2rem;
+    color: #d50032;  
 }
 
 /* ===== ESTILOS GENERALES ===== */
